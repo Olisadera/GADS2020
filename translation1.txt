@@ -1,0 +1,71 @@
+LAB: CONSOLE AND CLOUD SHELL
+
+Objectives:
+
+1. Get access to Google Cloud.
+
+2. Create a Cloud Storage bucket using the Cloud Console.
+
+3. Create a Cloud Storage bucket using Cloud Shell.
+
+4. Become familiar with Cloud Shell features.
+
+
+1. CREATE A CLOUD STORAGE BUCKET USING CLOUD CONSOLE:
+
+    gsutil mb gs://<BUCKET_NAME>
+
+2. CREATE A CLOUD STORAGE BUCKET USING CLOUD SHELL:
+
+    gsutil mb gs://<BUCKET_NAME>
+
+3. BECOME FAMILIAR WITH CLOUD SHELL FEATURES:
+    A. Copy a file from your Cloud Shell virtual machine in your bucket:
+        gsutil cp [MY_FILE] gs://[BUCKET_NAME]
+
+    B. Create a persistent state in Cloud Shell:
+        i. To list available regions: 
+            gcloud compute regions list
+
+        ii. To Create an environmental variable with your choosen region:
+            INFRACLASS_REGION=[YOUR_REGION]
+
+        iii. To verify if the variable was created:
+            echo $INFRACLASS_REGION
+
+    C. Append the environment variable to a file:
+        i. Create a subdirectory:
+            mkdir [SUB_DIRECTORY]
+
+        ii. Create a file in the subdirectory:
+            touch [SUB_DIRECTORY]/[FILE_NAME]
+
+        iii. Append the value of your Region environment variable to the [FILE_NAME]:
+             echo INFRACLASS_REGION=$INFRACLASS_REGION >> ~/[SUB_DIRECTORY]/[FILE_NAME]
+
+        iv. Create a second environment variable for your Project ID:
+            INFRACLASS_PROJECT_ID=[YOUR_PROJECT_ID]
+
+        v. Append the value of your Project ID environment variable to the [FILE_NAME]:
+            echo INFRACLASS_PROJECT_ID=$INFRACLASS_PROJECT_ID >> ~/[SUB_DIRECTORY]/[FILE_NAME]
+
+        vi. Set the environment variables in the subdirectory:
+            source [SUB_DIRECTORY]/[FILE_NAME]
+
+        vii. Verify that the project variable and region variable was set:
+             echo $INFRACLASS_PROJECT_ID
+             echo $INFRACLASS_REGION
+    
+    D. Modify the bash profile and create persistence:
+        i. Edit the shell profile:
+            nano .profile
+
+        ii. Add the following line to the end of the file:
+            source [SUB_DIRECTORY]/[FILE_NAME]
+
+        iii. Press Ctrl+O, ENTER, and Ctrl+X to exit the nano editor
+        
+        iv. Close and then re-open Cloud Shell to verify that the variable is still set:
+            echo $INFRACLASS_PROJECT_ID
+
+END LAB!

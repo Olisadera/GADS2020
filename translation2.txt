@@ -1,0 +1,79 @@
+LAB: ERROR REPORTING AND DEBUGGING
+
+Objectives:
+
+1. Launch a simple Google App Engine application
+
+2. Introduce an error into the application
+
+3. Explore Cloud Error Reporting
+
+4. Use Cloud Debugger to identify the error in the code
+
+5. Fix the bug and monitor in Cloud Operations
+
+
+1. CREATE AN APPLICATION:
+GET AND TEST THE APPLICATION
+
+    a. Create a local folder and get the App Engine Hello world application:
+        i. mkdir appengine-hello
+        ii. cd appengine-hello
+        iii. gsutil cp gs://cloud-training/archinfra/gae-hello/* .
+
+    b. Run the application using the local development server:
+        dev_appserver.py $(pwd)
+
+    c. Preview the application on port 8080
+
+    d. Press Ctrl+C to exit the development server
+
+DEPLOY THE APPLICATION TO APP ENGINE
+
+    a.  Deploy the application to App Engine:
+        gcloud app deploy app.yaml
+        (If prompted for a region, enter the number corresponding to a region.
+        When prompted, type Y to continue.)
+
+    b. Verify that the application is working:
+        gcloud app browse
+        (If needed, press Ctrl+C to exit the development mode.)
+
+INTRODUCE AN ERROR TO BREAK THE APPLICATION
+
+    a. Examine the main.py file: 
+        cat main.py
+
+    b. Use the sed stream editor to change the import library to the nonexistent webapp22:
+        sed -i -e 's/webapp2/webapp22/' main.py
+    
+    c. Verify that you made the change:
+        cat main.py
+
+REDEPLOY THE APPLICATION TO APP ENGINE
+
+    a. Re-deploy the application to App Engine:
+        gcloud app deploy app.yaml --quite
+        (The --quiet flag disables all interactive prompts when running gcloud commands.)
+
+    b. Verify that the application is broken:
+        gcloud app browse
+        (If needed, press Ctrl+C to exit development mode.)
+
+2. EXPLORE CLOUD ERROR REPORTING
+VIEW ERROR REPORTING AND TRIGGER ADITIONAL ERRORS
+    a. In the Cloud Console, on the Navigation menu, click Error Reporting
+
+    b. View details and identify the cause
+
+VIEW THE LOGS AND FIX THE ERROR
+    a. Fix the error:
+        sed -i -e 's/webapp22/webapp2/' main.py
+
+    b. Re-deploy the application to App Engine:
+        gcloud app deploy app.yaml --quiet
+
+    c. Verify that the application is working again:
+        gcloud app browse
+
+END LAB!
